@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wehelp stage1 week1 v4</title>
+    <link rel="stylesheet" type="text/css" href="week1_work_v4.css">
+
+</head>
+
+
+<body>
+
+    <!-- nav-bar物件 -->
+    <div class="flex_view">
+        <div>
+            <span class = "header_sitename">My Website</span>
+        </div>
+
+        <div class="item_team">
+            <div class="x" onclick=close_hamburger_menu()>X</div>
+
+            
+            <div class="item_obj" id="item1">item1</div>
+            <div class="item_obj" id="item2">item2</div>
+            <div class="item_obj" id="item3">item3</div>
+            <div class="item_obj" id="item4">item4</div>
+
+
+
+
+            <div>
+                <img class="buger_menu" id="buger_menu" onclick="open_hamburger_menu()" src="./img/hamburger_menu_icon.png">
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+    <div class="welcome_banner"> Welcome to MyHome </div>
+
+
+    <!-- 下面promotion、title的主內容 -->
+
+    <div class="all_content">
+
+        <div class="content1">
+            <div class="content2">
+                <!-- promotion 1 -->
+                <div class="column1_promotion">
+                    <img src="./img/img1.jpg" width="80" height="50"/>
+                    <div class="column1_promotion_word">promotion 1</div>
+                </div>
+
+                <!-- promotion 2 -->
+                <div class="column1_promotion">
+                    <img src="./img/img1.jpg" width="80" height="50"/>
+                    <div class="column1_promotion_word">promotion 2</div>
+                </div>
+
+                <!-- column3-->
+                <div class="column1_promotion">
+                    <img src="./img/img1.jpg" width="80" height="50"/>
+                    <div class="column1_promotion_word">promotion 3</div>
+                </div>
+            </div>
+        </div>
+
+        
+        <!-- 下面的title content -->
+        <div class="title_content1">
+            <div class="title_content2">
+
+                <!-- 1~5 的 title -->
+                <div class="big_box_object" id="Title_1_id">
+                    <div class="title_word" >Title 1</div>
+                    <div class="star_icon_div">                
+                        <img class="star_icon" src="./img/star.png" alt="star">
+                    </div>
+                </div>
+                <div class="small_box_object" id="Title_2_id">
+                    <div class="title_word">Title 2</div>
+                    <div class="star_icon_div">                
+                        <img class="star_icon" src="./img/star.png" alt="star">
+                    </div>
+                </div>
+                <div class="small_box_object" id="Title_3_id">
+                    <div class="title_word">Title 3</div>
+                    <div class="star_icon_div">                
+                        <img class="star_icon" src="./img/star.png" alt="star">
+                    </div>
+                </div>
+                <div class="small_box_object" id="Title_4_id">
+                    <div class="title_word">Title 4</div>
+                    <div class="star_icon_div">                
+                        <img class="star_icon" src="./img/star.png" alt="star">
+                    </div>
+                </div>
+                <div class="small_box_object" id="Title_5_id">
+                    <div class="title_word">Title 5</div>
+                    <div class="star_icon_div">                
+                        <img class="star_icon" src="./img/star.png" alt="star">
+                    </div>
+                </div>
+
+
+                <!-- 6~10 title-->
+                <div class="big_box_object" id="Title_6_id">
+                    <span class="title_word">Title 6</span>
+                    <div class="star_icon_div">                
+                        <img class="star_icon" src="./img/star.png" alt="star">
+                    </div>
+                </div>
+                <div class="small_box_object" id="Title_7_id">
+                    <span class="title_word">Title 7</span>
+                    <div class="star_icon_div">                
+                        <img class="star_icon" src="./img/star.png" alt="star">
+                    </div>
+                </div>
+                <div class="small_box_object" id="Title_8_id">
+                    <span class="title_word">Title 8</span>
+                    <div class="star_icon_div">                
+                        <img class="star_icon" src="./img/star.png" alt="star">
+                    </div>
+                </div>
+                <div class="small_box_object" id="Title_9_id">
+                    <span class="title_word">Title 9</span>
+                    <div class="star_icon_div">                
+                        <img class="star_icon" src="./img/star.png" alt="star">
+                    </div>
+                </div>
+                <div class="small_box_object" id="Title_10_id">
+                    <span class="title_word">Title 10</span>
+                    <div class="star_icon_div">                
+                        <img class="star_icon" src="./img/star.png" alt="star">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <script>
+        function open_hamburger_menu(){
+            //要先取得標籤
+            let x_change = document.querySelector(".x");
+            let item_team_change = document.querySelector(".item_team");
+            let item1_obj_change = document.querySelector("#item1");
+            let item2_obj_change = document.querySelector("#item2");
+            let item3_obj_change = document.querySelector("#item3");
+            let item4_obj_change = document.querySelector("#item4");
+
+            let buger_menu_change = document.querySelector(".buger_menu");
+
+            //再對標籤做操作
+            x_change.style.display="block";
+            x_change.style.alignSelf="flex-end";
+            x_change.style.marginRight="20px";
+            x_change.style.marginTop="10%";
+
+            item_team_change.style.display="flex";
+            item_team_change.style.flexDirection="column";
+            item_team_change.style.justifyContent="start";
+            item_team_change.style.width="50%";
+            item_team_change.style.height="100%";
+            item_team_change.style.position= "fixed";
+            item_team_change.style.zIndex="1";
+            item_team_change.style.top="0px";
+            item_team_change.style.right="-10px";
+            item_team_change.style.backgroundColor="#ffffff";
+            item_team_change.style.border="1px solid #ccc"
+            item_team_change.style.boxShadow="2px 2px 4px 0 rgba(0,0,0,0.3)"
+
+            item1_obj_change.style.display="block";
+            item1_obj_change.style.fontSize="20px";
+            item1_obj_change.style.margin="5%";
+            item1_obj_change.style.marginTop="10%";
+            item1_obj_change.style.height="5%";
+
+            item2_obj_change.style.display="block";
+            item2_obj_change.style.fontSize="20px";
+            item2_obj_change.style.margin="5%";
+            item2_obj_change.style.marginTop="10%";
+            item2_obj_change.style.height="5%";
+
+            item3_obj_change.style.display="block";
+            item3_obj_change.style.fontSize="20px";
+            item3_obj_change.style.margin="5%";
+            item3_obj_change.style.marginTop="10%";
+            item3_obj_change.style.height="5%";
+
+            item4_obj_change.style.display="block";
+            item4_obj_change.style.fontSize="20px";
+            item4_obj_change.style.margin="5%";
+            item4_obj_change.style.marginTop="10%";
+            item4_obj_change.style.height="5%";
+
+            buger_menu_change.style.display="none";
+
+        }
+
+
+
+        function close_hamburger_menu(){
+            //要先取得標籤
+            let x_change = document.querySelector(".x");
+            let item_team_change = document.querySelector(".item_team");
+
+            let item1_obj_change = document.querySelector("#item1");
+            let item2_obj_change = document.querySelector("#item2");
+            let item3_obj_change = document.querySelector("#item3");
+            let item4_obj_change = document.querySelector("#item4");
+
+            let buger_menu_change = document.querySelector(".buger_menu");
+
+            //再對標籤做操作
+            x_change.style.display="none";
+
+            item1_obj_change.style.display="none";
+            item2_obj_change.style.display="none";
+            item3_obj_change.style.display="none";
+            item4_obj_change.style.display="none";
+            item_team_change.style.position="";
+            item_team_change.style.flexDirection="";
+            item_team_change.style.justifyContent="";
+            item_team_change.style.width="";
+            item_team_change.style.height="";
+            item_team_change.style.zIndex="";
+            item_team_change.style.top="";
+            item_team_change.style.right="";
+            item_team_change.style.backgroundColor="";
+            item_team_change.style.border=""
+            item_team_change.style.boxShadow=""
+
+            
+            buger_menu_change.style.display="flex";
+            buger_menu_change.style.flex="auto";
+            buger_menu_change.style.justifyContent="end";
+            buger_menu_change.style.height="20px";
+            buger_menu_change.style.width="20px";
+
+        }
+
+
+
+    </script>
+</body>
+</html>
