@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+
+
+
+
+
+
+
+    <script>
+        // task1
+        console.log("------------------------------- task1 -------------------------------")
+        function findAndPrint(messages, currentStation){
+            // your code here
+            let station_value = []
+            let station_name = ["Songshan", 
+                                "Nanjing Sanmin",
+                                "Taipei Arena",
+                                "Nanjing Fuxing",
+                                "Songjiang Nanjing",
+                                "Zhongshan",
+                                "Beimen",
+                                "Ximen",
+                                "Xiaonanmen",
+                                "Chiang Kai-Shek Memorial Hall",
+                                "Guting",
+                                "Taipower Building",
+                                "Gongguan",
+                                "Wanlong",
+                                "Jingmei",
+                                "Dapinglin",
+                                "Qizhang",
+                                "Xiaobitan",
+                                "Xindian City Hall",
+                                "Xindian"
+                                ]
+
+            // 各站點的值
+            for (let n=0; n<station_name.length; n++){
+                station_value.push(n);
+            }
+
+            let mes_station = []
+            let station_distance =[]
+            // console.log(station_name);
+            // console.log(station_value);
+            // 校正值(因為有人在捷運站，有人在捷運站附近，在站點的為0，在附近的為0.5)
+            let fix_value=[0.5,0,0.5,0.5,0];
+
+
+            //現在站點的值(看輸入的值在array的哪個值【index】)  
+            let index1 = station_name.indexOf(currentStation);//我現在站點的index、值
+
+            // console.log(index1);
+            let now_station_value = station_value[index1]
+            // console.log(now_station_value);
+            
+            // 取得朋友訊息中站點的資訊，並獲取站點值
+            let messages_name = Object.keys(messages)
+
+            for(let n2=0; n2< fix_value.length; n2++){ //逐個訊息去看
+
+                for(let n3=0; n3<station_name.length; n3++){ //逐個站點去看，看訊息裡面有包含的站是哪個
+
+                    if (messages[messages_name[n2]].search(station_name[n3]) !=-1){ //如果訊息裡面有這個站點就加入站點的ARRAY中
+                        mes_station.push(station_name[n3]); // 新增訊息中站點的名稱
+                        station_distance.push(Math.abs(station_value[n3]-now_station_value)+fix_value[n2]);
+                    }else{
+
+                    }
+                }
+            }
+        // console.log(station_distance)//所有的距離值
+        // console.log(station_distance.indexOf(Math.min(...station_distance)))//最小距離值的index
+
+        console.log(messages_name[station_distance.indexOf(Math.min(...station_distance))])
+        }
+
+        const messages={"Bob":"I'm at Ximen MRT station.", 
+                        "Mary":"I have a drink near Jingmei MRT station.", 
+                        "Copper":"I just saw a concert at Taipei Arena.", 
+                        "Leslie":"I'm at home near Xiaobitan station.", 
+                        "Vivian":"I'm at Xindian station waiting for you."};
+
+        findAndPrint(messages, "Wanlong"); // print Mary 
+        findAndPrint(messages, "Songshan"); // print Copper 
+        findAndPrint(messages, "Qizhang"); // print Leslie 
+        findAndPrint(messages, "Ximen"); // print Bob 
+        findAndPrint(messages, "Xindian City Hall"); // print Vivian
+
+
+        // task2
+        console.log("------------------------------- task2 -------------------------------")
+
+
+        let time_book_John=[];
+        let time_book_Bob=[];
+        let time_book_Jenny=[];
+        //建立訂閱時間清單(array)
+        for(n=0; n<24;n++){
+            time_book_John.push(0);
+            time_book_Bob.push(0);
+            time_book_Jenny.push(0);
+        }
+
+
+        function book(consultants, hour, duration, criteria){
+            // your code here
+            let select_master_name=""
+
+
+            //先建立要判斷的條件的順序
+            let price_list = [];
+            let rate_list = [];
+            for(n=0; n<consultants.length; n++){
+                price_list.push(consultants[n]["price"]);//取出price變成array
+                rate_list.push(consultants[n]["rate"]);//取出rate變成array
+            }
+
+            // let price_sort_list = price_list.sort();
+            // let rate_sort_list = rate_list.sort();
+            //因為Sort的方法默認會依照第一個字母的順序來做排列
+            // 故需要用其他方法來讓他按照值的大小來排列(價格從小排到大)
+            let price_sort_list = price_list.sort(function(a, b){return a - b});
+
+            // 故需要用其他方法來讓他按照值的大小來排列(評價從大排到小)
+            let rate_sort_list = rate_list.sort(function(a, b){return b - a});
+
+            let price_name_sort_list=[]
+            let rate_name_sort_list=[]
+
+
+            // price 名稱排列
+            for(let n1=0; n1<price_sort_list.length; n1++){
+
+                for(let n2=0; n2<consultants.length; n2++){
+                    if(price_sort_list[n1] == consultants[n2]["price"]){
+                        price_name_sort_list.push(consultants[n2]["name"]);
+                    }else{
+                    }
+                }
+            }
+
+            // rate 名稱排列
+            for(let n1=0; n1 < rate_list.length; n1++){
+                for(let n2=0; n2 < consultants.length; n2++){
+                    if(rate_sort_list[n1] == consultants[n2]["rate"]){
+                        rate_name_sort_list.push(consultants[n2]["name"]);
+                    }else{
+                    }
+                }
+            }
+
+            // console.log(price_name_sort_list.length)
+            //依照價錢照順序找下來
+            let n9 = 0
+            if(criteria=="price"){
+                while(n9 < price_name_sort_list.length){
+
+                    if(price_name_sort_list[n9]=="John"){
+                        //看那個人時間可不可以
+                        if(time_book_John.slice(hour, hour+duration).indexOf(1) != -1){
+                        }else{//如果可以
+                            for(let v=0; v<duration;v++){
+                                time_book_John.splice(hour+v,1,1)
+                            }
+                            select_master_name = "John"
+                            n9 = 99
+                            // console.log(time_book_John)
+                        }
+
+                    }else if(price_name_sort_list[n9]=="Bob"){
+                        if(time_book_Bob.slice(hour, hour+duration).indexOf(1) != -1){
+                        }else{
+                            for(let v=0; v<duration;v++){
+                                time_book_Bob.splice(hour+v,1,1)
+                            }
+                            
+                            select_master_name = "Bob"
+                            n9 = 99
+                            // console.log(time_book_Bob)
+
+                        }
+                    }else if(price_name_sort_list[n9]=="Jenny"){
+                        if(time_book_Jenny.slice(hour, hour+duration).indexOf(1) != -1){
+                            }else{
+                                for(let v=0; v<duration;v++){
+                                    time_book_Jenny.splice(hour+v,1,1)
+                                }
+                            select_master_name = "Jenny"
+                            n9 = 99
+                            // console.log(time_book_Jenny)
+                            }
+                        }else{  
+                            select_master_name = "沒有"
+                        }
+                n9++
+                }
+            }else if (criteria=="rate"){
+                
+                while(n9 < rate_name_sort_list.length){
+                    if(rate_name_sort_list[n9]=="John"){
+                        //看那個人時間可不可以
+                        if(time_book_John.slice(hour, hour+duration).indexOf(1) != -1){
+                        }else{//如果可以
+                            for(let v=0; v<duration;v++){
+                                time_book_John.splice(hour+v,1,1)
+                            }
+                            select_master_name = "John"
+                            n9 = 99
+                            // console.log(time_book_John)
+
+                        }
+
+                    }else if(rate_name_sort_list[n9]=="Bob"){
+                        if(time_book_Bob.slice(hour, hour+duration).indexOf(1) != -1){
+                        }else{
+                            for(let v=0; v<duration;v++){
+                                time_book_Bob.splice(hour+v,1,1)
+                            }
+                            
+                            select_master_name = "Bob"
+                            n9 = 99
+                            // console.log(time_book_Bob)
+
+                        }
+                    }else if(rate_name_sort_list[n9]=="Jenny"){
+                        if(time_book_Jenny.slice(hour, hour+duration).indexOf(1) != -1){
+                            }else{
+                                for(let v=0; v<duration;v++){
+                                    time_book_Jenny.splice(hour+v,1,1)
+                                }
+                            select_master_name = "Jenny"
+                            n9 = 99
+                            // console.log(time_book_Jenny)
+                            }
+                        }else{  
+                            
+                        }
+                    n9++
+                    }
+            }else{
+                console.log("請輸入price or rate")
+            }
+            if(select_master_name==""){
+                select_master_name = "No Service "
+            }
+            console.log(select_master_name)
+        }
+
+        const consultants=[ {"name":"John", "rate":4.5, "price":1000}, 
+                            {"name":"Bob", "rate":3, "price":1200}, 
+                            {"name":"Jenny", "rate":3.8, "price":800} ];
+
+
+        book(consultants, 15, 1, "price"); // Jenny 
+        book(consultants, 11, 2, "price"); // Jenny 
+        book(consultants, 10, 2, "price"); // John 
+        book(consultants, 20, 2, "rate"); // John 
+        book(consultants, 11, 1, "rate"); // Bob 
+        book(consultants, 11, 2, "rate"); // No Service 
+        book(consultants, 14, 3, "price"); // John
+
+
+        // task3
+        console.log("------------------------------- task3 -------------------------------")
+
+        function func(...data)
+        { 
+            // your code here 
+            let name_tumple = data;
+            let center_word_list = [];
+            let center_word_count = [];
+            let uniqul_name="";
+
+            for(let n=0; n<name_tumple.length; n++){
+
+                // 判斷名子有幾個字
+                // 字數為兩個字
+                if((n/2)==1){
+                    center_word_list.push(name_tumple[n].substr(1,1));//新增中間字進去
+                }else{
+                    let num = name_tumple[n].length/2;
+                    if (Number.isInteger(num)){//字數為偶數
+                        center_word_list.push(name_tumple[n].substr(2, 1));
+                    } 
+                    else{//字數為奇數
+                        // num = Math.floor(num)
+                        center_word_list.push(name_tumple[n].substr(Math.floor(num), 1));
+                    }
+                }
+            }
+            
+            //計算中間名的次數
+            let total_count = center_word_list.reduce((obj,item)=>{
+            if (item in obj) {
+                obj[item]++
+            } else {
+                obj[item] = 1
+            }
+            return obj
+            },{})
+
+
+            for(let n2=0; n2< center_word_list.length; n2++){
+                let a3 = total_count[center_word_list[n2]]
+                if (a3==1){
+                    uniqul_name=name_tumple[n2]
+                    
+                }else{}
+            }
+
+            if (uniqul_name==""){
+                uniqul_name = "沒有"
+            }
+
+            console.log(uniqul_name)
+
+        } 
+        func("彭大牆", "陳王明雅", "吳明"); // print 彭大牆 
+        func("郭靜雅", "王立強", "郭林靜宜", "郭立恆", "林花花"); // print 林花花 
+        func("郭宣雅", "林靜宜", "郭宣恆", "林靜花"); // print 沒有 
+        func("郭宣雅", "夏曼藍波安", "郭宣恆"); // print 夏曼藍波安
+
+
+
+        // task4----------------------------------------------------------------------------------
+        console.log("------------------------------- task4 -------------------------------")
+        function getNumber(index){ 
+            // your code here 
+            let number=0;
+            if(index==1){
+                number=4;
+            }else if(index==2){
+                number=8;
+            }
+            else{
+                a1 = Math.floor(index/3);//無條件捨去
+                a2 = index%3;
+                number = (8*a1)-a1+(4*a2);
+            }
+
+            console.log(number)
+            }//fun
+
+
+        getNumber(1); // print 4 
+        getNumber(5); // print 15 
+        getNumber(10); // print 25 
+        getNumber(30); // print 70
+
+
+        
+
+        // task5----------------------------------------------------------------------------------
+        console.log("------------------------------- task5 -------------------------------")
+        
+        function find(spaces, stat, n){
+            // your code here
+            let carriage = ""; //選擇的車廂
+            let pool = []; //候選池(index)
+
+            
+            for(let i=0; i<stat.length; i++){
+                if(stat[i]==1){
+                    //看該車廂剩下的座位夠不夠坐
+                    if(spaces[i]>=n){
+                        pool.push(i);
+                    }else{
+                    }
+                }
+            }
+
+            if(pool.length != 0){
+                compare = []; //用來比較選出最小值(剩餘車位數)
+                for(let i2=0;i2<pool.length;i2++){
+                    // console.log("bbb",spaces[pool[i2]])
+                    compare.push(spaces[pool[i2]]);
+                }
+                carriage = pool[compare.indexOf(Math.min(...compare))];
+            }else{
+                carriage = -1;
+            }
+
+        console.log(carriage)
+
+        // console.log(carriage)
+        }
+        find([3, 1, 5, 4, 3, 2], [0, 1, 0, 1, 1, 1], 2); // print 5 
+        find([1, 0, 5, 1, 3], [0, 1, 0, 1, 1], 4); // print -1 
+        find([4, 6, 5, 8], [0, 1, 1, 1], 4); // print 2
+
+
+    </script>
+
+</body>
+
+</html>
