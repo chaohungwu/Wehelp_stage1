@@ -47,21 +47,24 @@
         <div class="content1">
             <div class="content2">
                 <!-- promotion 1 -->
-                <div class="column1_promotion">
-                    <img src="./img/img1.jpg" width="80" height="50"/>
-                    <div class="column1_promotion_word">promotion 1</div>
+                <div class="column1_promotion" id="column1_id_promotion">
+                    <!-- <img src="./img/img1.jpg" width="80" height="50"/> -->
+                    <!-- <div class="column1_promotion_word" id="promotion_1_id_text">promotion 1</div> -->
                 </div>
 
                 <!-- promotion 2 -->
-                <div class="column1_promotion">
-                    <img src="./img/img1.jpg" width="80" height="50"/>
-                    <div class="column1_promotion_word">promotion 2</div>
+                <div class="column1_promotion" id="column2_id_promotion">
+                    <div>
+
+                    </div>
+                    <!-- <img src="./img/img1.jpg" width="80" height="50"/> -->
+                    <!-- <div class="column1_promotion_word" id="promotion_2_id_text">promotion 2</div> -->
                 </div>
 
                 <!-- column3-->
-                <div class="column1_promotion">
-                    <img src="./img/img1.jpg" width="80" height="50"/>
-                    <div class="column1_promotion_word">promotion 3</div>
+                <div class="column1_promotion" id="column3_id_promotion">
+                    <!-- <img src="./img/img1.jpg" width="80" height="50"/> -->
+                    <!-- <div class="column1_promotion_word" id="promotion_3_id_text">promotion 3</div> -->
                 </div>
             </div>
         </div>
@@ -73,31 +76,31 @@
 
                 <!-- 1~5 的 title -->
                 <div class="big_box_object" id="Title_1_id">
-                    <div class="title_word" >Title 1</div>
+                    <div class="title_word" id = "Title_1_id_text">Title 1</div>
                     <div class="star_icon_div">                
                         <img class="star_icon" src="./img/star.png" alt="star">
                     </div>
                 </div>
                 <div class="small_box_object" id="Title_2_id">
-                    <div class="title_word">Title 2</div>
+                    <div class="title_word" id="Title_2_id_text">Title 2</div>
                     <div class="star_icon_div">                
                         <img class="star_icon" src="./img/star.png" alt="star">
                     </div>
                 </div>
                 <div class="small_box_object" id="Title_3_id">
-                    <div class="title_word">Title 3</div>
+                    <div class="title_word" id="Title_3_id_text">Title 3</div>
                     <div class="star_icon_div">                
                         <img class="star_icon" src="./img/star.png" alt="star">
                     </div>
                 </div>
                 <div class="small_box_object" id="Title_4_id">
-                    <div class="title_word">Title 4</div>
+                    <div class="title_word" id="Title_4_id_text">Title 4</div>
                     <div class="star_icon_div">                
                         <img class="star_icon" src="./img/star.png" alt="star">
                     </div>
                 </div>
                 <div class="small_box_object" id="Title_5_id">
-                    <div class="title_word">Title 5</div>
+                    <div class="title_word" id="Title_5_id_text">Title 5</div>
                     <div class="star_icon_div">                
                         <img class="star_icon" src="./img/star.png" alt="star">
                     </div>
@@ -106,31 +109,31 @@
 
                 <!-- 6~10 title-->
                 <div class="big_box_object" id="Title_6_id">
-                    <span class="title_word">Title 6</span>
+                    <span class="title_word" id="Title_6_id_text">Title 6</span>
                     <div class="star_icon_div">                
                         <img class="star_icon" src="./img/star.png" alt="star">
                     </div>
                 </div>
                 <div class="small_box_object" id="Title_7_id">
-                    <span class="title_word">Title 7</span>
+                    <span class="title_word" id="Title_7_id_text">Title 7</span>
                     <div class="star_icon_div">                
                         <img class="star_icon" src="./img/star.png" alt="star">
                     </div>
                 </div>
                 <div class="small_box_object" id="Title_8_id">
-                    <span class="title_word">Title 8</span>
+                    <span class="title_word" id="Title_8_id_text">Title 8</span>
                     <div class="star_icon_div">                
                         <img class="star_icon" src="./img/star.png" alt="star">
                     </div>
                 </div>
                 <div class="small_box_object" id="Title_9_id">
-                    <span class="title_word">Title 9</span>
+                    <span class="title_word" id="Title_9_id_text">Title 9</span>
                     <div class="star_icon_div">                
                         <img class="star_icon" src="./img/star.png" alt="star">
                     </div>
                 </div>
                 <div class="small_box_object" id="Title_10_id">
-                    <span class="title_word">Title 10</span>
+                    <span class="title_word" id="Title_10_id_text">Title 10</span>
                     <div class="star_icon_div">                
                         <img class="star_icon" src="./img/star.png" alt="star">
                     </div>
@@ -244,6 +247,181 @@
         }
 
 
+        let_title_list = ["#Title_1_id_text","#Title_2_id_text","#Title_3_id_text","#Title_4_id_text","#Title_5_id_text",
+                            "#Title_6_id_text","#Title_7_id_text",
+                                "#Title_8_id_text","#Title_9_id_text","#Title_10_id_text"
+        ]
+        let_img_list =["#Title_1_id", "#Title_2_id", "#Title_3_id", "#Title_4_id", "#Title_5_id", 
+                        "#Title_6_id", "#Title_7_id", "#Title_8_id", "#Title_9_id", "#Title_10_id", ]
+
+
+
+        let_promotion_word_list = ["#promotion_1_id_text","#promotion_2_id_text","#promotion_3_id_text"]
+        let_promotion_img_list = ["#column1_id_promotion","#column2_id_promotion","#column3_id_promotion"]
+
+
+
+        function getData(){
+            //利用fetch進行連線並取得資料
+            fetch("https://padax.github.io/taipei-day-trip-resources/taipei-attractions-assignment-1").then(function(response){
+                
+                // 產生response物件
+                return response.json();
+
+                }).then(function(data){
+                    // console.log(data['data']);
+                    // console.log(data['data']['results'][0]);
+                    // console.log(data['data']['results'][0]["stitle"]);
+                    for(let i=3; i<13; i++){
+                        let spot_title = data['data']['results'][i]["stitle"];
+                        let spot_img = data['data']['results'][i]["filelist"];
+
+                        let spot_title_dom = document.querySelector(let_title_list[i-3])
+                        spot_title_dom.textContent = "";
+                        // spot_title_dom.textContent = spot_title;
+                        let new_spot_title_dom = document.createElement("div");
+                        new_spot_title_dom.style.width = "200px"; // 設置寬度
+                        new_spot_title_dom.style.whiteSpace = "nowrap";
+                        new_spot_title_dom.style.overflow = "hidden";
+                        new_spot_title_dom.style.textOverflow = "ellipsis";
+                        new_spot_title_dom.style.marginLeft = "10px";
+                        new_spot_title_dom.style.marginRight = "10px";
+                        new_spot_title_dom.textContent = spot_title;
+                        spot_title_dom.appendChild(new_spot_title_dom);
+
+                        // let spot_title_dom_img = document.querySelector(let_title_list[i-3])
+
+                        // console.log(spot_img.indexOf(".JPG"))
+                        // let aaa = spot_img.substring(0, spot_img.indexOf(".JPG")+4)
+                        // console.log(aaa)
+                        // console.log(spot_img.indexOf(".jpg"))
+                        // console.log(spot_img.indexOf(".JPG"))
+
+                        if (spot_img.indexOf(".jpg") != -1 
+                            && (spot_img.indexOf(".JPG") != -1)
+                            && (spot_img.indexOf(".jpg") < spot_img.indexOf(".JPG"))
+                            ){
+                            let aaa = spot_img.substring(0, spot_img.indexOf(".jpg")+4)
+                            let new_spot_title_dom_img = document.querySelector(let_img_list[i-3])
+                            new_spot_title_dom_img.style.backgroundImage  = `url("${aaa}")`;
+                            console.log("aaa")
+                            }
+                        else if(spot_img.indexOf(".JPG") != -1){
+                        let aaa = spot_img.substring(0, spot_img.indexOf(".JPG")+4)
+                        let new_spot_title_dom_img = document.querySelector(let_img_list[i-3])
+                        new_spot_title_dom_img.style.backgroundImage  = `url("${aaa}")`;
+                        console.log("bbb")
+                            }
+                        else{
+                        let aaa = spot_img.substring(0, spot_img.indexOf(".jpg")+4)
+                        let new_spot_title_dom_img = document.querySelector(let_img_list[i-3])
+                        new_spot_title_dom_img.style.backgroundImage  = `url("${aaa}")`;
+                        console.log("aaa")
+                            }
+
+
+
+                        };
+
+                    
+
+
+                    
+                    for(let i=0; i<3; i++){
+                        let img_dom = document.querySelector(let_promotion_img_list[i]);
+                        // let word_dom = document.querySelector(let_promotion_word_list[i]);
+
+                        let new_word_dom = document.createElement("div");
+                        let new_img_dom = document.createElement("img");
+                        let spot_title = data['data']['results'][i]["stitle"];
+                        let spot_img = data['data']['results'][i]["filelist"];
+                        // console.log(spot_img)
+                        // console.log(spot_img.indexOf(".jpg"))
+                        new_word_dom.textContent = spot_title;
+
+                        if (spot_img.indexOf(".jpg") != -1){
+
+                            let aaa = spot_img.substring(0, spot_img.indexOf(".jpg")+4)
+                            new_img_dom.src = aaa;
+                            new_img_dom.style.display = "flex";
+                            new_img_dom.style.justifyContent = "center";
+                            new_img_dom.style.alignItems = "center";
+
+                            new_word_dom.flexWrap = "wrap";
+                            new_word_dom.style.flexDirection = "column";
+                            // new_word_dom.style.alignItems = "center";
+                            new_word_dom.style.justifyContent = "center";
+                            new_word_dom.style.display = "flex";
+                            new_word_dom.style.justifyContent = "none";
+                            new_word_dom.style.marginLeft = "10px";
+
+                            img_dom.appendChild(new_img_dom);
+                            img_dom.appendChild(new_word_dom);
+
+
+                        }else if(spot_img.indexOf(".JPG") != -1){
+
+                            let aaa = spot_img.substring(0, spot_img.indexOf(".JPG")+4)
+                            new_img_dom.src = aaa;
+                            new_img_dom.style.display = "flex";
+                            new_img_dom.style.justifyContent = "center";
+                            new_img_dom.style.alignItems = "center";
+                            new_word_dom.display = "flex";
+                            new_word_dom.justifyContent = "none";
+                            new_word_dom.display = "flex";
+                            new_word_dom.justifyContent = "none";
+
+                            img_dom.appendChild(new_img_dom);
+                            img_dom.appendChild(new_word_dom);
+                        }
+
+
+                    }
+                        
+
+                        // let new_spot_title_dom = document.createElement("div");
+
+                        
+
+
+
+
+
+                        // new_spot_title_dom.appendChild(new_spot_title_dom);
+
+
+
+                        // let img = document.createElement("img");
+                        // img.src = img_src_list[i];
+                        // img.width = 80;
+                        // img.height = 50;
+
+
+
+
+
+
+
+// spot_title_dom.setAttribute("class", "title_word");
+
+
+// spot_title_dom.appendChild(spot_title_dom_new);
+// spot_title_dom_new.setAttribute("class", "red");
+
+
+// var a = document.createElement("button");
+// document.querySelector("#Title_1_id").appendChild(Title_1_id_new);
+// Title_1_id_new.setAttribute("class", "red");
+
+// document.querySelector(".title").appendChild(str);
+// str.setAttribute("class", "red"); //在 str 新增屬性
+
+                    
+
+                    
+                });
+        }
+        getData()
 
     </script>
 </body>

@@ -119,9 +119,14 @@
     justify-content: center;/*水平置中div*/
     text-align: center;
     height: 10%;
-    align-items: center;
+    /* align-items: center; */
     background-color: rgb(214, 243, 198);
     opacity: 0.7;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* max-width: 100%; */
+    
 }
 
 
@@ -155,6 +160,7 @@
 }
 
 
+
 .big_box_object{
     width: 20%;
     height: 200px;
@@ -165,7 +171,9 @@
     flex-direction: column-reverse;
     background-size: cover;/*背景照片*/
     background-image: url("./img/img1.jpg");/*背景照片*/
-} 
+}
+
+
 
 .small_box_object{
     width: 180px;
@@ -247,7 +255,7 @@
 
     .column1_promotion_word{
         display: flex;
-        justify-content: none;
+        justify-content: center;
         /* word-break:break-all; */
     }
 
