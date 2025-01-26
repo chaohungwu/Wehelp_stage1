@@ -2,14 +2,7 @@
 
 # In[] Task1
 
-"""
-邏輯：
-樂透版的文章標題、推/噓、日期
-文章標題：str
-文章標題：int
-文章標題：Fri Jul 14 23:34:43 2023
-逐步地去尋找相同的內容
-"""
+
 
 #抓取網頁html
 import urllib.request as req
