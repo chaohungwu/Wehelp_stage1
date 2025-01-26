@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wehelp stage1 week1 v4</title>
+    <title>Wehelp stage1 week3 task3</title>
     <link rel="stylesheet" type="text/css" href="week1_work_v4.css">
 
 </head>
@@ -48,8 +48,8 @@
             <div class="content2">
                 <!-- promotion 1 -->
                 <div class="column1_promotion" id="column1_id_promotion">
-                    <!-- <img src="./img/img1.jpg" width="80" height="50"/> -->
-                    <!-- <div class="column1_promotion_word" id="promotion_1_id_text">promotion 1</div> -->
+                    <img id="promotion_img_id1" src="./img/img1.jpg" width="80" height="50"/>
+                    <div class="column1_promotion_word" id="promotion_1_id_text">promotion 1</div>
                 </div>
 
                 <!-- promotion 2 -->
@@ -57,14 +57,14 @@
                     <div>
 
                     </div>
-                    <!-- <img src="./img/img1.jpg" width="80" height="50"/> -->
-                    <!-- <div class="column1_promotion_word" id="promotion_2_id_text">promotion 2</div> -->
+                    <img id="promotion_img_id2" src="./img/img1.jpg" width="80" height="50"/>
+                    <div class="column1_promotion_word" id="promotion_2_id_text">promotion 2</div>
                 </div>
 
                 <!-- column3-->
                 <div class="column1_promotion" id="column3_id_promotion">
-                    <!-- <img src="./img/img1.jpg" width="80" height="50"/> -->
-                    <!-- <div class="column1_promotion_word" id="promotion_3_id_text">promotion 3</div> -->
+                    <img id="promotion_img_id3" src="./img/img1.jpg" width="80" height="50"/>
+                    <div class="column1_promotion_word" id="promotion_3_id_text">promotion 3</div>
                 </div>
             </div>
         </div>
@@ -259,7 +259,7 @@
         let_promotion_word_list = ["#promotion_1_id_text","#promotion_2_id_text","#promotion_3_id_text"]
         let_promotion_img_list = ["#column1_id_promotion","#column2_id_promotion","#column3_id_promotion"]
 
-
+        new_promotion_img_list = ["#promotion_img_id1","#promotion_img_id2","#promotion_img_id3"]
 
         function getData(){
             //利用fetch進行連線並取得資料
@@ -328,56 +328,103 @@
 
                     
                     for(let i=0; i<3; i++){
-                        let img_dom = document.querySelector(let_promotion_img_list[i]);
-                        // let word_dom = document.querySelector(let_promotion_word_list[i]);
+                        
+                        let spot_title = data['data']['results'][i]["stitle"];//每個json裡面的title
+                        let spot_img = data['data']['results'][i]["filelist"];//每個json裡面的img url
+                        let new_promotion_img_dom = document.querySelector(new_promotion_img_list[i]);
+                        let new_promotion_word_dom = document.querySelector(let_promotion_word_list[i]);
+                        
 
-                        let new_word_dom = document.createElement("div");
-                        let new_img_dom = document.createElement("img");
-                        let spot_title = data['data']['results'][i]["stitle"];
-                        let spot_img = data['data']['results'][i]["filelist"];
+                        // let img_dom = document.querySelector(let_promotion_img_list[i]);
+                        // let word_dom = document.querySelector(let_promotion_word_list[i]);
+                        // let new_word_dom = document.createElement("div");
+                        // let new_img_dom = document.createElement("img");
                         // console.log(spot_img)
                         // console.log(spot_img.indexOf(".jpg"))
-                        new_word_dom.textContent = spot_title;
+                        new_promotion_word_dom.textContent = spot_title;
 
                         if (spot_img.indexOf(".jpg") != -1){
 
                             let aaa = spot_img.substring(0, spot_img.indexOf(".jpg")+4)
-                            new_img_dom.src = aaa;
-                            new_img_dom.style.display = "flex";
-                            new_img_dom.style.justifyContent = "center";
-                            new_img_dom.style.alignItems = "center";
+                            new_promotion_img_dom.src = aaa;
+                            // console.log(aaa)
+                            
+                            // new_img_dom.src = aaa;
+                            // new_img_dom.style.display = "flex";
+                            // new_img_dom.style.justifyContent = "center";
+                            // new_img_dom.style.alignItems = "center";
 
-                            new_word_dom.flexWrap = "wrap";
-                            new_word_dom.style.flexDirection = "column";
+                            // new_word_dom.flexWrap = "wrap";
+                            // new_word_dom.style.flexDirection = "column";
                             // new_word_dom.style.alignItems = "center";
-                            new_word_dom.style.justifyContent = "center";
-                            new_word_dom.style.display = "flex";
-                            new_word_dom.style.justifyContent = "none";
-                            new_word_dom.style.marginLeft = "10px";
+                            // new_word_dom.style.justifyContent = "center";
+                            // new_word_dom.style.display = "flex";
+                            // new_word_dom.style.justifyContent = "none";
+                            // new_word_dom.style.marginLeft = "10px";
 
-                            img_dom.appendChild(new_img_dom);
-                            img_dom.appendChild(new_word_dom);
+                            // img_dom.appendChild(new_img_dom);
+                            // img_dom.appendChild(new_word_dom);
 
 
                         }else if(spot_img.indexOf(".JPG") != -1){
-
                             let aaa = spot_img.substring(0, spot_img.indexOf(".JPG")+4)
-                            new_img_dom.src = aaa;
-                            new_img_dom.style.display = "flex";
-                            new_img_dom.style.justifyContent = "center";
-                            new_img_dom.style.alignItems = "center";
-                            new_word_dom.display = "flex";
-                            new_word_dom.justifyContent = "none";
-                            new_word_dom.display = "flex";
-                            new_word_dom.justifyContent = "none";
+                            new_promotion_img_dom.src = aaa;
+                            // console.log(aaa)
 
-                            img_dom.appendChild(new_img_dom);
-                            img_dom.appendChild(new_word_dom);
+                            // let aaa = spot_img.substring(0, spot_img.indexOf(".JPG")+4)
+                            // new_img_dom.src = aaa;
+                            // new_img_dom.style.display = "flex";
+                            // new_img_dom.style.justifyContent = "center";
+                            // new_img_dom.style.alignItems = "center";
+                            // new_word_dom.display = "flex";
+                            // new_word_dom.justifyContent = "none";
+                            // new_word_dom.display = "flex";
+                            // new_word_dom.justifyContent = "none";
+
+                            // img_dom.appendChild(new_img_dom);
+                            // img_dom.appendChild(new_word_dom);
                         }
 
 
                     }
                         
+
+                        // let new_spot_title_dom = document.createElement("div");
+
+                        
+
+
+
+
+
+                        // new_spot_title_dom.appendChild(new_spot_title_dom);
+
+
+
+                        // let img = document.createElement("img");
+                        // img.src = img_src_list[i];
+                        // img.width = 80;
+                        // img.height = 50;
+
+
+
+
+
+
+
+// spot_title_dom.setAttribute("class", "title_word");
+
+
+// spot_title_dom.appendChild(spot_title_dom_new);
+// spot_title_dom_new.setAttribute("class", "red");
+
+
+// var a = document.createElement("button");
+// document.querySelector("#Title_1_id").appendChild(Title_1_id_new);
+// Title_1_id_new.setAttribute("class", "red");
+
+// document.querySelector(".title").appendChild(str);
+// str.setAttribute("class", "red"); //在 str 新增屬性
 
                     
 
