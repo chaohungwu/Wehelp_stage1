@@ -2,6 +2,14 @@
 
 # In[] Task1
 
+"""
+邏輯：
+樂透版的文章標題、推/噓、日期
+文章標題：str
+文章標題：int
+文章標題：Fri Jul 14 23:34:43 2023
+逐步地去尋找相同的內容
+"""
 
 #抓取網頁html
 import urllib.request as req
@@ -79,30 +87,30 @@ for i in range(len(spot_serial_list)):
 #只取第一個圖片
 for i in range(len(spot_image_list)):
     #print(spot_image_list[i])
-    index = spot_image_list[i].find(".jpg")
-    if index != -1:
-        spot_image_list[i] = spot_image_list[i][:index+4]
+    jpg_index = spot_image_list[i].find(".jpg")
+    JPG_index = spot_image_list[i].find(".JPG")
     
+    if jpg_index != -1 and JPG_index!=-1 and jpg_index<JPG_index:
+        spot_image_list[i] = spot_image_list[i][:jpg_index+4]
+    
+    elif JPG_index!=-1:
+        JPG_index = spot_image_list[i].find(".JPG")
+        spot_image_list[i] = spot_image_list[i][:JPG_index+4]
+        
     else:
-        index = spot_image_list[i].find(".JPG")
-        spot_image_list[i] = spot_image_list[i][:index+4]
+        jpg_index = spot_image_list[i].find(".jpg")
+        spot_image_list[i] = spot_image_list[i][:jpg_index+4]
+        
+        
 
-
-#捷運統計
-#the_closest_mrt_list=[]
-
-#the_closest_mrt_list
-mrt_spot_list=[]
-for i in range(len(mrt_name_list)):
-    pre_mrt_spot_list = []
-    for i2 in range(len(spot_name_list)):
-        if the_closest_mrt_list[i2] == mrt_name_list[i]:
-            pre_mrt_spot_list.append(spot_name_list[i2])
     
-    mrt_spot_list.append(pre_mrt_spot_list)
     
-
-
+    
+    
+    
+    
+    
+# In[]
 
 def save_lists_to_csv(list1, list2, list3, list4, list5, filename):
     """
@@ -125,16 +133,47 @@ save_lists_to_csv(spot_name_list,
                   r"G:\05_wehelp\03_week_work\01_stage1\week3\spot.csv")        
         
 
+
+# In[]
+#捷運統計
+#the_closest_mrt_list=[]
+
+#the_closest_mrt_list
+
+new_mrt_name_list=[]
+for i in range(len(mrt_name_list)):
+    if mrt_name_list[i] not in new_mrt_name_list:
+        new_mrt_name_list.append(mrt_name_list[i])
+
+
+# In[]
+
+mrt_spot_list=[]
+for i in range(len(new_mrt_name_list)):
+    pre_mrt_spot_list = []
+    for i2 in range(len(spot_name_list)):
+        if the_closest_mrt_list[i2] == new_mrt_name_list[i]:
+            pre_mrt_spot_list.append(spot_name_list[i2])
+    
+    mrt_spot_list.append(pre_mrt_spot_list)
+
+# In[]
 mrt_spot_list_str=[]
 for i in range(len(mrt_spot_list)):
-    list_to_text=""
+    aaa=""
     for i2 in range(len(mrt_spot_list[i])):
         if i2==0:
-            list_to_text= "{}{}".format(list_to_text,mrt_spot_list[i][i2])
-        else:
-            list_to_text= "{},{}".format(list_to_text,mrt_spot_list[i][i2])
+            aaa=mrt_spot_list[i][i2]
         
-    mrt_spot_list_str.append(list_to_text)
+        else:
+            aaa="{},{}".format(aaa,mrt_spot_list[i][i2])
+        
+    mrt_spot_list_str.append(aaa)
+    
+
+
+# In[]
+
 
 
 
@@ -145,11 +184,11 @@ def save_lists_to_csv2(list1, list2, filename):
     
     
     with open(filename, 'w') as csvfile:
-        for row in zip(list1, list2): #將4個csv合併成一個tuple，並對應4個list中每個index的值
+        for row in zip(list1, list2): #將2個csv合併成一個tuple，並對應2個list中每個index的值
             line = ','.join(map(str, row)) + '\n'
             csvfile.write(line)
 
-save_lists_to_csv2(mrt_name_list,
+save_lists_to_csv2(new_mrt_name_list,
                    mrt_spot_list_str,
 
                   r"G:\05_wehelp\03_week_work\01_stage1\week3\mrt.csv")         
