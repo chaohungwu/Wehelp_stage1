@@ -65,8 +65,3 @@ app.mount("/", StaticFiles(directory="static" ,html=True))#所有靜態文件資
 templates = Jinja2Templates(directory="templates")#Jinja2模板
 
 
-@app.get("/items/{id}", response_class = HTMLResponse)
-async def read_item(request: Request, id: str):
-    return templates.TemplateResponse("item.html", 
-                                      {"request": request, 
-                                       "id": id})
