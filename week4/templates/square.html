@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment - Week 4 square</title>
+    <link rel="stylesheet" type="text/css" href="/week4_task.css">
+
+</head>
+
+
+<body class="body">
+    
+
+    <div class="web_banner_container">
+        <div class="web_banner">正整數平方計算結果</div>
+    </div>
+    <div>
+        <div class="web_login_container">
+            <div class="login_title" id="square_result"></div>
+        </div>
+    </div>
+
+
+<script>
+    square()
+    function square(){
+        let url = location.href;
+        // url.indexOf("/")
+        // console.log(url.lastIndexOf("/"))
+        num = url.substr(url.lastIndexOf("/")+1)
+        result = num**2
+        console.log(result)
+
+        let square_dom = document.getElementById("square_result")
+        square_dom.textContent=result
+        // console.log(url)
+    }
+
+
+    
+</script>
+
+
+
+</body>
+    
+
+
+
+</html>
