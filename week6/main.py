@@ -77,7 +77,7 @@ def sigin_Verification(request: Request, body = Body(None)):
     password = data["signin_password"]#從前端傳來的輸入密碼
 
     cursor = website_db.cursor()
-    cursor.execute("select name, username, password from member where username = '{}';".format(account))#選所有的帳號
+    cursor.execute("select name, username, password ,id from member where username = '{}';".format(account))#選所有的帳號
 
     myresult = cursor.fetchall()#回傳所有資料庫指令結果
     """
@@ -94,7 +94,9 @@ def sigin_Verification(request: Request, body = Body(None)):
         request.session["user_id"] = account #將session存入request中
 
         name = myresult[0][0]#名稱
-        return {"sign-in": True, "message": "SUCCESS!", "name":name}
+        name_id = myresult[0][3]#名稱id
+
+        return {"sign-in": True, "message": "SUCCESS!", "name":name , "name_id":name_id}
 
     else:
         return {"sign-in": False, "message": "意外錯誤"}
@@ -134,7 +136,7 @@ def createMessage(request: Request, body = Body(None)):
     # 空值的話{'new_message': ''}
     if data["new_message"] == "":
         cursor = website_db.cursor()
-        cursor.execute("select member.name, message.content from message inner join member on message.member_id = member.id order by message.time desc;")#選所有的留言
+        cursor.execute("select member.name, message.content, message.id, member.id from message inner join member on message.member_id = member.id order by message.time desc;")#選所有的留言
         
         myresult = cursor.fetchall()#回傳所有資料庫指令結果
         print(myresult)
@@ -162,7 +164,7 @@ def createMessage(request: Request, body = Body(None)):
         #新增留言
         cursor.execute("insert into message (member_id, content) values(%s,%s)", (user_id, new_message))
         website_db.commit()
-        cursor.execute("select member.name, message.content from message inner join member on message.member_id = member.id order by message.time desc;")#選所有的留言
+        cursor.execute("select member.name, message.content, message.id, member.id from message inner join member on message.member_id = member.id order by message.time desc;")#選所有的留言
         myresult = cursor.fetchall()#回傳所有資料庫指令結果
 
         
@@ -174,11 +176,18 @@ def createMessage(request: Request, body = Body(None)):
 @app.post("/deleteMessage")
 def createMessage(request: Request, body = Body(None)):
     data = json.loads(body)
-    print(data)
+    # print(data)
+    # data2 = data
+    # print(data["message_index"])
 
+    cursor = website_db.cursor()
+    cursor.execute("delete from message where message.id = %s",(data["message_index"],))
+    website_db.commit()
 
+    cursor.execute("select member.name, message.content, message.id, member.id from message inner join member on message.member_id = member.id order by message.time desc;")#選所有的留言
+    myresult = cursor.fetchall()#回傳所有資料庫指令結果
 
-
+    return{"new_message":False,"message": myresult}
 
 
 
