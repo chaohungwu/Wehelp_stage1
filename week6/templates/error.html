@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment - Week 6 error</title>
+    <link rel="stylesheet" type="text/css" href="week6_task.css">
+
+</head>
+
+
+<body class="body">
+    
+
+    <div class="web_banner_container">
+        <div class="web_banner">失敗頁面</div>
+    </div>
+    <div>
+        <div class="web_login_container">
+            <div class="login_title" id="error_message" ></div>
+        </div>
+    </div>
+
+    <div>
+        <div class="web_login_container">
+            <a class="login_title" href="/">返回首頁</a>
+        </div>
+    </div>
+
+
+<script>
+    error_message_get()
+
+    async function error_message_get(){
+        let url = location.href;//取得網址
+        let error_message = url.substr(url.lastIndexOf("=")+1)
+
+        error_message = decodeURI(error_message);//因為網址會產生編碼問題，這邊將網址的編碼做解碼
+
+        let error_message_dom = document.getElementById("error_message");
+        error_message_dom.textContent = error_message
+        };
+
+        
+
+
+
+</script>
+
+
+
+</body>
+
+</html>

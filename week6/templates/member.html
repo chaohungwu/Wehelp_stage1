@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment - Week 6 member</title>
+    <link rel="stylesheet" type="text/css" href="week6_task.css">
+
+</head>
+
+
+<body class="body">
+    
+
+    <div class="web_banner_container">
+        <div class="web_banner">歡迎光臨，這是會員頁</div>
+    </div>
+    <div>
+        <div class="web_login_container">
+            <div class="login_title" id="name_welcome"></div>
+        </div>
+    </div>
+
+    <div>
+        <div class="web_login_container">
+            <a class="login_title" href="/signout">登出系統</a>
+        </div>
+    </div>
+
+
+    <hr> <!-- 分隔線 以下是留言功能-->
+
+    <div class="message_input_area">
+        <div class="message_input_area">
+            <div class="message_title">快來留言吧</div>
+            <div class="message_input_container">
+                <div class="signup_str">內容</div>
+                <div>
+                    <input class="message_input" id="message_input" type="text" name="message_input">
+                </div>
+            </div>
+            <div>
+                <button class="message_input_but" onclick="member_create_message()">送出</button>
+            </div>
+
+        </div>
+    </div>
+
+    <hr> <!-- 分隔線 以下是留言板-->
+
+    <div class="message_board">
+        <div id="all_message_board_content">
+            <!-- <a class="message_name">人：</a> -->
+            <!-- <a class="message_content">123測試</a> -->
+        </div>
+    </div>
+
+
+
+<script>
+    member_name_get()
+    member_create_message()//先取一次所有留言
+
+
+
+
+
+
+    async function member_name_get(){
+        let name_welcome_dom = document.getElementById("name_welcome");
+        let name = sessionStorage.getItem("name");//從session取出姓名資訊
+        name_welcome_dom.textContent = `${name}，歡迎登入系統`
+    }
+
+
+    //取得所有的留言，並取得該帳號的留言出現按鈕
+    async function member_create_message(){
+        let new_message = document.getElementById("message_input").value
+        let name = sessionStorage.getItem("name");//從session取出姓名資訊
+
+        let response = await fetch("/createMessage",// 要連結的連結
+                {
+                    method:"POST",
+                    //發送請求到後方並戴上這些json
+                    body:JSON.stringify({"name":name,
+                                         "new_message":new_message})
+                });
+
+                
+        // 從後端接資料過來
+        let data =await response.json();
+        
+        console.log(data['new_message'])
+        console.log(data['message'])
+
+        if(data['new_message']== false){ 
+        
+            for(let i=0; i<data['message'].length; i++){
+
+                let message_arr_dom = document.createElement("div");
+                message_arr_dom.className = "message_arr";
+                message_arr_dom.id = `message_arr_${i}`;
+                document.querySelector("#all_message_board_content").appendChild(message_arr_dom)
+
+                let message_name_dom = document.createElement("a");
+                let message_board_name = data['message'][i][0]
+                message_name_dom.textContent = `${message_board_name}:`,     //插入名稱
+                message_name_dom.className = "message_name";
+                document.querySelector(`#message_arr_${i}`).appendChild(message_name_dom)
+
+                let message_dom = document.createElement("a");
+                let message_board_message = data['message'][i][1]
+                message_dom.textContent = message_board_message,     //插入留言
+                message_dom.className = "message";
+                document.querySelector(`#message_arr_${i}`).appendChild(message_dom)
+            };
+
+        }else {
+            let a = document.querySelectorAll('.message_arr');//先把留言板清空
+            for(let n =0 ; n<a.length; n++){
+                a[n].remove()
+            };
+
+            for(let i=0; i<data['message'].length; i++){
+                let message_arr_dom = document.createElement("div");
+                message_arr_dom.className = "message_arr";
+                message_arr_dom.id = `message_arr_${i}`;
+                document.querySelector("#all_message_board_content").appendChild(message_arr_dom)
+
+                
+                let message_name_dom = document.createElement("a");
+                let message_board_name = data['message'][i][0]
+                message_name_dom.textContent = `${message_board_name}:`,     //插入名稱
+                message_name_dom.className = "message_name";
+                document.querySelector(`#message_arr_${i}`).appendChild(message_name_dom)
+
+
+                let message_dom = document.createElement("a");
+                let message_board_message = data['message'][i][1]
+                message_dom.textContent = message_board_message,     //插入留言
+                message_dom.className = "message";
+                document.querySelector(`#message_arr_${i}`).appendChild(message_dom)
+                }
+        };
+    }
+
+
+
+
+
+
+
+
+    
+</script>
+</body>
+
+</html>
+
+
+
+
+
+
