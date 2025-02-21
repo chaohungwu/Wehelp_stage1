@@ -7,6 +7,9 @@ from fastapi.templating import Jinja2Templates
 import json
 
 from starlette.middleware.sessions import SessionMiddleware
+import base64
+import os
+
 #資料庫會存入這個變數中
 website_db = mysql.connector.connect(
                                     user="root",
@@ -15,10 +18,15 @@ website_db = mysql.connector.connect(
                                     database="website",
                                     charset="utf8mb4")
 
-
 templates = Jinja2Templates(directory="templates")  # 指定模板目錄
 app = FastAPI()
-app.add_middleware(SessionMiddleware, secret_key="YOUR_SECRET_KEY")#隨機產生安全金鑰
+
+# base64.b32encode(os.urandom(20))
+# base64.b64encode(os.urandom(24))
+random_token = base64.b32encode(os.urandom(20))
+app.add_middleware(SessionMiddleware, secret_key = random_token)#隨機產生安全金鑰
+print(random_token)
+
 
 
 ## "/signup" 接收註冊資料，檢視註冊資料中是否有重複註冊等問題
@@ -102,6 +110,8 @@ def sigin_Verification(request: Request, body = Body(None)):
 
     elif myresult[0][1] == account and myresult[0][2] == password:
         
+
+
         request.session["user_id"] = myresult[0][1] #將session存入request中
         request.session["user_id_index"] = myresult[0][3] #將session存入request中
 
