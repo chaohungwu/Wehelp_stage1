@@ -59,13 +59,13 @@
 
 <script>
     member_create_message()//先取一次所有留言
-    member_name_get()
+    // member_name_get()
 
-    async function member_name_get(){
-        let name_welcome_dom = document.getElementById("name_welcome");
-        let name = sessionStorage.getItem("name");//從session取出姓名資訊
-        name_welcome_dom.textContent = `${name}，歡迎登入系統`
-    }
+    // async function member_name_get(){
+    //     let name_welcome_dom = document.getElementById("name_welcome");
+    //     let name = sessionStorage.getItem("name");//從session取出姓名資訊
+    //     name_welcome_dom.textContent = `${name}，歡迎登入系統`
+    // }
 
 
     //取得所有的留言，並取得該帳號的留言出現按鈕
