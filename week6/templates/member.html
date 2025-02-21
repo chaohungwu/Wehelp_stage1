@@ -58,13 +58,8 @@
 
 
 <script>
-    member_name_get()
     member_create_message()//先取一次所有留言
-
-
-
-
-
+    member_name_get()
 
     async function member_name_get(){
         let name_welcome_dom = document.getElementById("name_welcome");
@@ -76,12 +71,9 @@
     //取得所有的留言，並取得該帳號的留言出現按鈕
     async function member_create_message(){
         let new_message = document.getElementById("message_input").value
-        let name = sessionStorage.getItem("name");//從session取出姓名資訊
-        // let name_id = sessionStorage.getItem("name_id");//從session取出姓名id資訊，後續用來辨識哪個是他的留言
 
         //清空輸入欄
         document.getElementById("message_input").value ="";
-
         let response = await fetch("/createMessage",// 要連結的連結
                 {
                     method:"POST",
@@ -91,7 +83,13 @@
         
         // 從後端接資料過來
         let data =await response.json();
-        console.log(data['message'])
+
+        //改歡迎banner的字
+        let name_welcome_dom = document.getElementById("name_welcome");
+        let name = data['sign_in_name'];//從session取出姓名資訊
+        name_welcome_dom.textContent = `${name}，歡迎登入系統`
+
+
 
 
         //先把留言板清空(避免沒留言資料直接點按鈕，留言然後出現兩行)
