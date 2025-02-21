@@ -111,9 +111,9 @@ def sigin_Verification(request: Request, body = Body(None)):
     elif myresult[0][1] == account and myresult[0][2] == password:
         
 
-
         request.session["user_id"] = myresult[0][1] #將session存入request中
         request.session["user_id_index"] = myresult[0][3] #將session存入request中
+        request.session["user_name"] = myresult[0][0] #將session存入request中
 
         name = myresult[0][0]#名稱
         name_id = myresult[0][3]#名稱id
@@ -157,9 +157,9 @@ def createMessage(request: Request, body = Body(None)):
     data = json.loads(body)
     # print(data)
 
-    name = request.session["user_id"]
+    name = request.session["user_id"]#帳號
     name_id = request.session["user_id_index"]
-    
+    sign_in_name = request.session["user_name"]
     new_message = data["new_message"]
 
     print(data["new_message"])
@@ -172,7 +172,7 @@ def createMessage(request: Request, body = Body(None)):
         cursor.execute("select member.name, message.content, message.id, member.id from message inner join member on message.member_id = member.id order by message.time desc;")#選所有的留言
         myresult = cursor.fetchall()#回傳所有資料庫指令結果
         
-        return{"new_message":False,"message": myresult,"siginin_id":name_id}
+        return{"new_message":False,"message": myresult,"siginin_id":name_id, "sign_in_name":sign_in_name}
 
 
     #有新留言值的話就先新增留言然後回傳所有的留言
@@ -181,9 +181,7 @@ def createMessage(request: Request, body = Body(None)):
         cursor = website_db.cursor()
         #查member_id
         cursor.execute("select id from member where member.name = %s", (name,))
-
         myresult = cursor.fetchall()#回傳所有資料庫指令結果
-        # user_id = myresult[0][0]#member_id(str)
 
         #新增留言
         cursor.execute("insert into message (member_id, content) values(%s,%s)", (name_id, new_message))
@@ -193,7 +191,7 @@ def createMessage(request: Request, body = Body(None)):
 
 
         print("aaaa",name)
-        return{"new_message":True,"message": myresult, "siginin_id":name_id}
+        return{"new_message":True,"message": myresult, "siginin_id":name_id, "sign_in_name":sign_in_name}
 
 
 
