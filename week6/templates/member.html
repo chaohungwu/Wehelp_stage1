@@ -17,7 +17,7 @@
     </div>
     <div>
         <div class="web_login_container">
-            <div class="login_title" id="name_welcome"></div>
+            <div class="login_title" id="name_welcome">{{ name }}，歡迎登入系統</div>
         </div>
     </div>
 
@@ -59,13 +59,6 @@
 
 <script>
     member_create_message()//先取一次所有留言
-    // member_name_get()
-
-    // async function member_name_get(){
-    //     let name_welcome_dom = document.getElementById("name_welcome");
-    //     let name = sessionStorage.getItem("name");//從session取出姓名資訊
-    //     name_welcome_dom.textContent = `${name}，歡迎登入系統`
-    // }
 
 
     //取得所有的留言，並取得該帳號的留言出現按鈕
@@ -83,12 +76,6 @@
         
         // 從後端接資料過來
         let data =await response.json();
-
-        //改歡迎banner的字
-        let name_welcome_dom = document.getElementById("name_welcome");
-        let name = data['sign_in_name'];//從session取出姓名資訊
-        name_welcome_dom.textContent = `${name}，歡迎登入系統`
-
 
 
 
