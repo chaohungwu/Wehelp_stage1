@@ -111,9 +111,9 @@ def sigin_Verification(request: Request, body = Body(None)):
     elif myresult[0][1] == account and myresult[0][2] == password:
         
 
-        request.session["user_id"] = myresult[0][1] #將session存入request中
-        request.session["user_id_index"] = myresult[0][3] #將session存入request中
-        request.session["user_name"] = myresult[0][0] #將session存入request中
+        request.session["user_id"] = myresult[0][1] #將session存入request中(會員帳號)
+        request.session["user_id_index"] = myresult[0][3] #將session存入request中(會員名id)
+        request.session["user_name"] = myresult[0][0] #將session存入request中(會員名)
 
         name = myresult[0][0]#名稱
         name_id = myresult[0][3]#名稱id
@@ -134,11 +134,12 @@ def signout(request: Request):
 
 # 會員頁
 @app.get("/member",  response_class=HTMLResponse)
-def success(request: Request):
+def success(request: Request, name: str=''):
     if "user_id" not in request.session: #如果user_id沒有在session中就等回首頁
          return RedirectResponse("/")
     else:
-        return templates.TemplateResponse("member.html", {"request": request})
+        name =  request.session["user_name"]
+        return templates.TemplateResponse("member.html", {"request": request, "name": name})
 
 
 # 錯誤頁面訊息
@@ -172,7 +173,7 @@ def createMessage(request: Request, body = Body(None)):
         cursor.execute("select member.name, message.content, message.id, member.id from message inner join member on message.member_id = member.id order by message.time desc;")#選所有的留言
         myresult = cursor.fetchall()#回傳所有資料庫指令結果
         
-        return{"new_message":False,"message": myresult,"siginin_id":name_id, "sign_in_name":sign_in_name}
+        return{"new_message":False,"message": myresult,"siginin_id":name_id}
 
 
     #有新留言值的話就先新增留言然後回傳所有的留言
@@ -191,7 +192,7 @@ def createMessage(request: Request, body = Body(None)):
 
 
         print("aaaa",name)
-        return{"new_message":True,"message": myresult, "siginin_id":name_id, "sign_in_name":sign_in_name}
+        return{"new_message":True,"message": myresult, "siginin_id":name_id}
 
 
 
