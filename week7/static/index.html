@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment - Week 6</title>
+    <link rel="stylesheet" type="text/css" href="week6_task.css">
+
+</head>
+<body class="body">
+    <div class="web_banner_container">
+        <div class="web_banner">歡迎光臨，請註冊帳號密碼</div>
+    </div>
+
+    <div>
+        <div class="web_signup_container">
+            <div class="signup_title" >註冊帳號</div>
+
+            <!-- 驗證有沒有輸入值或是勾選 -->
+            <form>
+                <div class="web_signup_ap_container">
+                    <div class="signup_str">姓名</div>
+                    <div><input class="signup_input" id="signup_name_input" type="text" name="signup_name_input"></div>
+                </div>
+
+                <div class="web_signup_ap_container">
+                    <div class="signup_str">帳號</div>
+                    <div>
+                        <input class="signup_input" id="account_signup_input" type="text" name="signup_account_input">
+                    </div>
+                </div>
+
+                <div class="web_signup_ap_container">
+                    <div class="signup_str">密碼</div>
+                    <div>
+                        <input class="signup_input" id="password_signup_input" type="password" name="signup_password_input">
+                    </div>
+                </div>
+
+            </form>
+
+            <div>
+                <button class="signup_but" onclick="validate_signup_input()">註冊</button>
+            </div>
+
+        </div>
+    </div>
+
+    <hr> <!-- 分隔線 -->
+        <div class="web_login_container">
+
+        <div class="web_login_container">
+            <div class="login_title">登入系統</div>
+
+            <div class="web_signup_ap_container">
+                <div class="signup_str">帳號</div>
+                <div>
+                    <input class="signup_input" id="accounu_signin_input" type="text" name="signin_accounu_input">
+                </div>
+            </div>
+
+            <div class="web_signup_ap_container">
+                <div class="signup_str">密碼</div>
+                <div>
+                    <input class="signup_input" id="password_signin_input" type="password" name="signin_password_input">
+                </div>
+            </div>
+
+            <div>
+                <button class="login_but" onclick="validate_signin_input()">登入</button>
+            </div>
+        </div>
+
+
+
+    <script>
+        // 驗證註冊內容有無輸入資訊
+        function validate_signup_input() {
+            let name = document.getElementById("signup_name_input").value;
+            let account = document.getElementById("account_signup_input").value;
+            let password = document.getElementById("password_signup_input").value;
+            
+            if(name =="" | account == "" | password == ""){
+                alert("姓名、帳號、密碼不得為空，請檢查後再點擊註冊，謝謝您！");
+                return false; // 阻止表單提交
+
+            }else{
+                console.log("註冊資料往後端送")// 將註冊資料往後端送
+                return signup_connect();
+            }
+        }
+        
+
+        // 驗證登入內容有無輸入資訊
+        function validate_signin_input(){
+            let account2 = document.getElementById("accounu_signin_input").value;
+            let password2 = document.getElementById("password_signin_input").value;
+            
+            if(account2 == "" | password2 == ""){
+                alert("帳號、密碼不得為空，請檢查輸入後再點擊登入，謝謝您！");
+                return false; // 阻止表單提交
+
+            }else{
+                // window.location.href = "/member"; //成功註冊
+                console.log("登入資料往後端送")
+                return signin_connect();
+            }
+        }
+
+
+
+
+        // 利用POST方式傳送註冊帳號密碼到後端，再從後端取得回傳確認跳轉為成功或是失敗
+        async function signup_connect(){
+            let signup_name = document.getElementById("signup_name_input").value;
+            let signup_account = document.getElementById("account_signup_input").value;
+            let signup_password = document.getElementById("password_signup_input").value;
+            
+            // 用POST發送請求到連結
+            let response = await fetch("/signup",// 要連結的連結
+                {
+                    method:"POST",
+                    //發送請求到後方並戴上這些json
+                    body:JSON.stringify({"signup_name":signup_name,
+                                        "signup_account":signup_account,
+                                        "signup_password":signup_password})
+                });
+                //從後端接資料過來
+                let data =await response.json();
+                let message = data["message"]
+
+                // 判斷後端回傳的json是否為true
+                if(data["sign-up"] == true){
+                    // console.log(data)
+                    window.location.href = "/"; //成功註冊【需再改】
+                }else{
+                    window.location.href = `/error?message=${message}`;//登入失敗
+                }
+        }
+
+
+        // 利用POST方式傳送登入帳號密碼到後端，再從後端取得回傳確認跳轉為成功或是失敗
+        async function signin_connect(){
+            let signin_account = document.getElementById("accounu_signin_input").value;
+            let signin_password = document.getElementById("password_signin_input").value;
+            
+            // 用POST發送請求到連結
+            let response = await fetch("/signin",// 要連結的連結
+                {
+                    method:"POST",
+                    //發送請求到後方並戴上這些json
+                    body:JSON.stringify({"signin_account":signin_account,
+                                         "signin_password":signin_password})
+                });
+
+                //從後端接資料過來
+                let data =await response.json();
+                let message = data["message"]
+
+                // 判斷後端回傳的json是否為true
+                if(data["sign-in"] == true){
+                    window.location.href = `/member`;//登入會員頁
+
+
+                }else{
+                    window.location.href = `/error?message=${message}`;//登入失敗
+                }
+        }
+
+
+    </script>
+
+
+</body>
+</html>

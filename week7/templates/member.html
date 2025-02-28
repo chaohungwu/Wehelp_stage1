@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment - Week 6 member</title>
+    <link rel="stylesheet" type="text/css" href="week6_task.css">
+
+</head>
+
+
+<body class="body">
+    
+
+    <div class="web_banner_container">
+        <div class="web_banner">歡迎光臨，這是會員頁</div>
+    </div>
+    <div>
+        <div class="web_login_container">
+            <div class="login_title" id="name_welcome">{{ name }}，歡迎登入系統</div>
+        </div>
+    </div>
+
+    <div>
+        <div class="web_login_container">
+            <a class="login_title" href="/signout">登出系統</a>
+        </div>
+    </div>
+
+
+    <hr> <!-- 分隔線 以下是留言功能-->
+
+    <div>
+        <div class="message_input_area">
+            <div class="message_title">快來留言吧</div>
+            <div class="message_input_container">
+                <div class="signup_str">內容</div>
+                <div>
+                    <input class="message_input" id="message_input" type="text" name="message_input">
+                </div>
+            </div>
+            <div>
+                <button class="message_input_but" onclick="member_create_message()">送出</button>
+            </div>
+
+        </div>
+    </div>
+
+    <hr> <!-- 分隔線 以下是留言板-->
+
+    <div class="message_board">
+        <div id="all_message_board_content">
+        </div>
+    </div>
+
+
+    <hr> <!-- 分隔線 以下是會員姓名查詢-->
+
+    <div>
+        <div class="lookup_name_input_area">
+            <div class="message_title">查詢會員姓名</div>
+            <div class="lookup_name_input_container">
+
+                <div>
+                    <input class="message_input" id="lookupname_input" type="text" name="lookupname_input">
+                </div>
+
+                <div>
+                    <button class="message_input_but" onclick="look_name_but()">送出</button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div>
+        <div class = "lookup_name" id="lookup_name"></div>
+    </div>
+
+    <hr> <!-- 分隔線 以下是會員姓名查詢-->
+
+    <div>
+        <div class="lookup_name_input_area">
+            <div class="message_title">更新我的姓名</div>
+            <div class="lookup_name_input_container">
+
+                <div>
+                    <input class="message_input" id="updata_input" type="text" placeholder="請輸入新的姓名" name="updata_input">
+                </div>
+
+                <div>
+                    <button class="message_input_but" onclick="updata_name_but()">更新</button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div>
+        <div class = "lookup_name" id="updata_name"></div>
+    </div>
+
+
+
+<script>
+    // member_create_message()//先取一次所有留言
+    get_user_message()
+
+    //取得所有的留言
+    async function get_user_message(){
+        let response = await fetch("/member/message_get");
+        let data =await response.json();
+        // console.log(data);
+
+        //先把留言板清空(避免沒留言資料直接點按鈕，留言然後出現兩行)
+        let a = document.querySelectorAll('.message_arr');
+        for(let n =0 ; n<a.length; n++){
+            a[n].remove()
+        };
+
+        for(let i=0; i<data['message'].length; i++){
+            let message_id = data['message'][i][2]
+
+            let message_arr_dom = document.createElement("div");
+            message_arr_dom.className = "message_arr";
+            message_arr_dom.id = `message_arr_${message_id}`;
+            document.querySelector("#all_message_board_content").appendChild(message_arr_dom)
+
+            let message_name_dom = document.createElement("a");
+            let message_board_name = data['message'][i][0]
+            message_name_dom.textContent = `${message_board_name}:`,//插入名稱
+            message_name_dom.className = "message_name";
+            document.querySelector(`#message_arr_${message_id}`).appendChild(message_name_dom)
+
+            let message_dom = document.createElement("a");
+            let message_board_message = data['message'][i][1]
+            message_dom.textContent = message_board_message,//插入留言
+            message_dom.className = "message";
+            document.querySelector(`#message_arr_${message_id}`).appendChild(message_dom)
+            
+            //這邊辨識這個留言是不是這個人留的
+            if(data['message'][i][3] == data['siginin_id']){
+                let del_but = document.createElement("button");
+                del_but.textContent="X"
+                del_but.className = "del_message_but";
+                del_but.id = `del_message_but_${message_id}`;
+
+                del_but.addEventListener('click', function() {
+                                        let name_id = sessionStorage.getItem("name_id");//從session取出姓名資訊
+                                        message_index = this.id.split("_")[3];
+
+                                        let del_confirm = confirm('確定要刪除留言嗎?');
+                                                if (del_confirm){
+                                                    click_del_message_but(message_index)
+                                                };
+                                        });
+
+                document.querySelector(`#message_arr_${message_id}`).appendChild(del_but)//新增刪除按鈕
+                }
+
+            };
+        let name_welcome_dom = document.querySelector("#name_welcome");
+        // console.log(data["siginin_name"])
+        name_welcome_dom.textContent = `${data["siginin_name"]}，歡迎登入系統` 
+    }
+
+
+    //取得所有的留言，並取得該帳號的留言出現按鈕
+    async function member_create_message(){
+        let new_message = document.getElementById("message_input").value
+
+        //清空輸入欄
+        document.getElementById("message_input").value ="";
+        let response = await fetch("/createMessage",// 要連結的連結
+                {
+                    method:"POST",
+                    //發送請求到後方並戴上這些json
+                    body:JSON.stringify({"new_message":new_message})
+                });
+        // 從後端接資料過來
+        let data =await response.json();
+
+        //重新取一次所有留言
+        get_user_message()
+
+    }
+
+    async function click_del_message_but(message_index){
+                let response = await fetch("/deleteMessage",// 要連結的連結
+                                            {
+                                                method:"POST",
+                                                //發送請求到後方並戴上這些json
+                                                body:JSON.stringify({"message_index":message_index,
+                                                                     })
+                                            });
+                                            
+                let data =await response.json();
+        
+        //重新取一次所有留言
+        get_user_message()
+    }
+
+
+    async function look_name_but(message_index){
+        let lookupname_input = document.getElementById("lookupname_input").value
+        if(lookupname_input ==""){
+                alert("搜尋欄不得為空，請檢查後再點擊搜尋，謝謝您！");
+                return false; // 阻止表單提交
+
+            }else{
+                //利用fetch進行連線並取得資料
+                fetch(`/api/member?username=${lookupname_input}`).then(function(response){
+                    // 產生response物件
+                    return response.json();
+                    }).then(function(response_data){
+
+                    console.log(response_data)
+
+                    if(response_data["data"]["name"]!=''){
+                        let lookup_name = document.querySelector("#lookup_name");
+                        lookup_name.textContent = `${response_data["data"]["name"]}(${response_data["data"]["username"]})` 
+                        console.log(response_data["data"]["name"])
+                    }else{
+                        let lookup_name = document.querySelector("#lookup_name");
+                        lookup_name.textContent = "No Data"
+                    }
+                })
+            };
+
+        }
+
+    //更新姓名函數   
+    async function updata_name_but(message_index){
+        let lookupname_input = document.getElementById("updata_input").value //取得輸入的新姓名
+
+        let response = await fetch("/api/member",// 要連結的連結
+                                            {
+                                                method:"PATCH",
+                                                //發送請求到後方並戴上這些json
+                                                // body:JSON.stringify({"message_index":message_index,})
+                                                headers: {
+                                                    'Content-Type': 'application/json'
+                                                },
+                                                    body: JSON.stringify({ name: lookupname_input, }) // 將新姓名以 JSON 格式傳送
+                                                });
+
+        let data =await response.json();
+
+        if (data["ok"]==true){
+            console.log(data)
+            let lookup_name = document.querySelector("#updata_name");
+            lookup_name.textContent = `更新成功`
+            //清空輸入欄
+            document.getElementById("updata_input").value ="";
+
+            get_user_message()
+
+        }else if(data["error"]==true){
+            let lookup_name = document.querySelector("#updata_name");
+            lookup_name.textContent = `更新失敗`
+            document.getElementById("updata_input").value ="";
+            get_user_message()
+        };
+    //先取一次所有留言
+    }
+
+
+
+</script>
+</body>
+
+</html>
+
+
+
+
+
+
