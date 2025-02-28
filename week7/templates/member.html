@@ -217,7 +217,7 @@
 
                     console.log(response_data)
 
-                    if(response_data["data"]["name"]!=''){
+                    if(response_data["data"]!='null'){
                         let lookup_name = document.querySelector("#lookup_name");
                         lookup_name.textContent = `${response_data["data"]["name"]}(${response_data["data"]["username"]})` 
                         console.log(response_data["data"]["name"])

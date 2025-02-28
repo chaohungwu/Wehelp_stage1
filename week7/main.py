@@ -240,12 +240,9 @@ def lookup_name(username:str):
     myresult = cursor.fetchall()#回傳所有資料庫指令結果
     print(myresult)
 
-    # 如果資料庫回傳值是空值
+    # 如果資料庫回傳值是空值(沒搜尋到)
     if myresult ==[]:
-        user_id = ""
-        user_name = "No Data"
-        user_account = ""
-        return {"data":{"id":user_id, "name":user_name, "username":user_account}}
+        return {"data":"null"}
 
     else:
         print(myresult)
@@ -262,16 +259,9 @@ def lookup_name(username:str):
 @app.patch("/api/member")
 def updata_name(request: Request, body = Body(None)):
 
-    print(body)
-    print(type(body))
-    # name = request.session["user_id"]#(現在登入的會員帳號)
-    # cursor = website_db.cursor()
-    # cursor.execute("update member set name= %s where username='test';", (name,))
-    # # cursor.execute("update member set name='%s' where username='test';",(,))
-    # website_db.commit()
-
     """
-    1. 有登入
+    1. 有登入且輸入不得為空值
+    2. 其他狀況內容(error)
     """
     if "user_id" in request.session and body["name"]!="":
         # name = request.session["user_id"]#(現在登入的會員帳號)
