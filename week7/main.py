@@ -242,7 +242,8 @@ def lookup_name(username:str):
 
     # 如果資料庫回傳值是空值(沒搜尋到)
     if myresult ==[]:
-        return {"data":"null"}
+        null = None
+        return {"data":null}
 
     else:
         print(myresult)
