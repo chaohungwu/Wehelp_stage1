@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>XSS 範例</title>
+</head>
+<body>
+  <div id="result"></div>
+  <a>213</a>
+  <a>aaa</a>
+
+
+  <script>
+
+    let urlParams = new URLSearchParams(window.location.search);
+    let keyword = urlParams.get('keyword');
+
+    console.log(window.location.href);
+
+    if (keyword) {
+      document.getElementById('result').innerHTML = keyword;
+    }
+
+  </script>
+</body>
+</html>

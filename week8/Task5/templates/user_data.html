@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment - Week 7</title>
+    <link rel="stylesheet" type="text/css" href="week6_task.css">
+
+</head>
+<body>
+    <div class="web_banner_container">
+        <div class="web_banner">歡迎光臨，請註冊帳號密碼</div>
+    </div>
+
+    <div>
+        <div class="web_signup_container">
+            <div class="signup_title" >註冊帳號</div>
+
+            <!-- 驗證有沒有輸入值或是勾選 -->
+            <form>
+                <div class="web_signup_ap_container">
+                    <div class="signup_str">姓名</div>
+                    <div><input class="signup_input" id="signup_name_input" type="text" name="signup_name_input"></div>
+                </div>
+
+                <div class="web_signup_ap_container">
+                    <div class="signup_str">帳號</div>
+                    <div>
+                        <input class="signup_input" id="account_signup_input" type="text" name="signup_account_input">
+                    </div>
+                </div>
+
+                <div class="web_signup_ap_container">
+                    <div class="signup_str">密碼</div>
+                    <div>
+                        <input class="signup_input" id="password_signup_input" type="password" name="signup_password_input">
+                    </div>
+                </div>
+
+            </form>
+
+            <div>
+                <button class="signup_but" onclick="validate_signup_input()">註冊</button>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

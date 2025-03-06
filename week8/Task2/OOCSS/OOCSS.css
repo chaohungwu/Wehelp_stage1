@@ -1,0 +1,34 @@
+/* 結構 */
+.card {
+  border: 1px solid #ccc;
+  padding: 20px;
+}
+
+.card__title {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.card__content {
+  margin-bottom: 20px;
+}
+
+.btn {
+  border: 1px solid;
+  padding: 10px 20px;
+}
+
+/* 外觀 */
+.card--featured {
+  border-color: red;
+}
+
+.btn-primary {
+  background-color: blue;
+  color: white;
+}
+
+.btn-secondary {
+  background-color: gray;
+  color: black;
+}

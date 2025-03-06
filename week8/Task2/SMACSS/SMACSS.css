@@ -1,0 +1,21 @@
+/* Base */
+body {
+    font-family: sans-serif;
+    line-height: 1.5;
+  }
+  
+  /* Layout */
+  .page-header {
+    width: 100%;
+  }
+  
+  /* Module */
+  .btn {
+    border: 1px solid;
+    padding: 10px 20px;
+  }
+  
+  /* State */
+  .is-active {
+    font-weight: bold;
+  }

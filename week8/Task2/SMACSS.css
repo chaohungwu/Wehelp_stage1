@@ -1,0 +1,47 @@
+/* Base */
+body {
+  font-family: sans-serif;
+  line-height: 1.5;
+}
+
+/* Layout */
+.card {
+  width: 300px;
+  margin: 20px auto;
+}
+
+/* Module */
+.card {
+  border: 1px solid #ccc;
+  padding: 20px;
+}
+
+.card__title {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.card__content {
+  margin-bottom: 20px;
+}
+
+.btn {
+  border: 1px solid;
+  padding: 10px 20px;
+}
+
+/* State */
+.card--featured {
+  border-color: red;
+}
+
+/* Theme */
+.btn-primary {
+  background-color: blue;
+  color: white;
+}
+
+.btn-secondary {
+  background-color: gray;
+  color: black;
+}
